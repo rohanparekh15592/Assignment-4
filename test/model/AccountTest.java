@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package model;
 
 import org.junit.Test;
@@ -23,7 +22,7 @@ import static org.junit.Assert.*;
  * Tests for the Account class
  */
 public class AccountTest {
-    
+
     public AccountTest() {
     }
 
@@ -47,11 +46,22 @@ public class AccountTest {
 
     @Test
     public void testGetBalanceIs100AfterDeposit500ThenWithdraw400() {
-        
+        Account acc = new Account();
+        acc.deposit(500);
+        acc.withdraw(400);
+        double expResult = 100;
+        double result = acc.getBalance();
+        assertEquals(expResult, result, 0.0);
     }
-    
+
     @Test
     public void testGetBalanceIsZeroAfterDeposit500ThenClose() {
-        
+        Account acc = new Account();
+        acc.deposit(500);
+        acc.close();
+        double expResult = 0;
+        double result = acc.getBalance();
+        assertEquals(expResult, result, 0.0);
+
     }
 }
