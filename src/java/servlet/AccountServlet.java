@@ -54,18 +54,22 @@ public class AccountServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Set<String> keySet = request.getParameterMap().keySet();
-        try (PrintWriter out = response.getWriter()) {
-            if (keySet.contains("withdraw") && request.getParameter("withdraw") != null) {
-                account.withdraw(Double.parseDouble(request.getParameter("withdraw")));
-            } else if (keySet.contains("deposit") && request.getParameter("deposit") != null) {
-                account.deposit(Double.parseDouble(request.getParameter("deposit")));
-            } else if (keySet.contains("close") && "true".equals(request.getParameter("close"))) {
-                account.close();
-            } else {
-                out.println("Error: No parameters to process POST request");
+        
+        try (PrintWriter out = response.getWriter()) {          
+            String withdraw= request.getParameter("withdraw");
+            String deposit= request.getParameter("deposit");
+            String close= request.getParameter("close");
+            
+            if(withdraw != null){
+            account.withdraw(Double.parseDouble(withdraw));
             }
-            doGet(request, response);
+            
+            else if(deposit != null){
+                account.deposit(Double.parseDouble(deposit));
+            }
+            else if(close != null && "true".equals(close)){
+            account.close();
+            }
         } catch (IOException ex) {
             Logger.getLogger(AccountServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
